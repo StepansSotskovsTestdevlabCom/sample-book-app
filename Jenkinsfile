@@ -4,56 +4,56 @@ pipeline {
     stages {
         stage('build-docker-image') {
             steps{
-                scripts {
+                script {
                     build_docker_image()
                 }
             }
         }
         stage('unit-tests') {
             steps{
-                scripts {
+                script {
                     run_unit_tests()
                 }
             }
         }
         stage('deploy-dev') {
             steps {
-                scripts{
+                script{
                     deploy("DEV")
                 }
             }
         }
         stage('api-test-dev') {
             steps {
-                scripts{
+                script{
                     run_api_tests("DEV")
                 }
             }
         }
         stage('deploy-stg') {
             steps {
-                scripts{
+                script{
                     deploy("STG")
                 }
             }
         }
         stage('api-test-stg') {
             steps {
-                scripts{
+                script{
                     run_api_tests("STG")
                 }
             }
         }
         stage('deploy-prd') {
             steps {
-                scripts{
+                script{
                     deploy("PRD")
                 }
             }
         }
         stage('api-test-prd') {
             steps {
-               scripts{
+               script{
                     run_api_tests("PRD")
                 }
             }
@@ -69,7 +69,6 @@ def build_docker_image() {
 def run_unit_tests() {
     echo "Running unit tests for node application in docker container"
 }
-
 
 def deploy(String environment){
     echo "Deployment triggered to ${environment} environemnt.. "
