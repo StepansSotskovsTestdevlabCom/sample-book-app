@@ -7,11 +7,6 @@ pipeline {
                 build_docker_image()
             }
         }
-        stage('unit-tests') {
-            steps{
-                run_unit_tests()
-            }
-        }
         stage('deploy-dev') {
             steps {
                 deploy("DEV")
@@ -46,16 +41,17 @@ pipeline {
 }
 
 
-def build_docker_image() {
-    echo "Build sample-book-app.. "
-    sh 'ls'
-    sh 'docker build --no-cache -t stepanssotskovs/sample-book-app:latest .'
-    sh 'docker push stepanssotskovs/sample-book-app:latest'
+def build_docker_image(String image) {
+    echo "Building docker image.. "
+    sh "docker build --no-cache -t stepanssotskovs/sample-book-app:latest ."
+
+    echo "Running unit tests for node application in docker container.. "
+    sh "docker run --rm --entrypoint=npm stepanssotskovs/sample-book-app:latest run test "
+
+    echo "Pushing docker image to the docker registry"
+    sh "docker push stepanssotskovs/sample-book-app:latest"   
 }
 
-def run_unit_tests() {
-    echo "Running unit tests for node application in docker container"
-}
 
 def deploy(String environment){
     echo "Deployment triggered to ${environment} environemnt.. "
