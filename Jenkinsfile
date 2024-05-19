@@ -49,6 +49,8 @@ pipeline {
 def build_docker_image() {
     echo "Build sample-book-app.. "
     sh 'ls'
+    sh 'docker build --no-cache -t stepanssotskovs/sample-book-app:latest .'
+    sh 'docker push stepanssotskovs/sample-book-app:latest'
 }
 
 def run_unit_tests() {
