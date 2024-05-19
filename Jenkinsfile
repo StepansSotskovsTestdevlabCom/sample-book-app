@@ -2,44 +2,82 @@ pipeline {
     agent any
 
     stages {
-        stage('build') {
-            steps {
-                echo "Build sample-book-app.. "
+        stage('build-docker-image') {
+            steps{
+                scripts {
+                    build_docker_image()
+                }
+            }
+        }
+        stage('unit-tests') {
+            steps{
+                scripts {
+                    run_unit_tests()
+                }
             }
         }
         stage('deploy-dev') {
             steps {
-                echo "Deployment triggered to DEV environemnt.. "
+                scripts{
+                    deploy("DEV")
+                }
             }
         }
         stage('api-test-dev') {
             steps {
-                echo "API Tests triggered against DEV environemnt.. "
+                scripts{
+                    run_api_tests("DEV")
+                }
             }
         }
         stage('deploy-stg') {
             steps {
-                echo "Deployment triggered to STG environemnt.. "
+                scripts{
+                    deploy("STG")
+                }
             }
         }
         stage('api-test-stg') {
             steps {
-                echo "API Tests triggered against STG environemnt.. "
+                scripts{
+                    run_api_tests("STG")
+                }
             }
         }
         stage('deploy-prd') {
             steps {
-                echo "Deployment triggered to PRD environemnt.. "
+                scripts{
+                    deploy("PRD")
+                }
             }
         }
         stage('api-test-prd') {
             steps {
-                echo "API Tests triggered against PRD environemnt.. "
+               scripts{
+                    run_api_tests("PRD")
+                }
             }
         }
     }
 }
 
+
+def build_docker_image() {
+    echo "Build sample-book-app.. "
+}
+
+def run_unit_tests() {
+    echo "Running unit tests for node application in docker container"
+}
+
+
+def deploy(String environment){
+    echo "Deployment triggered to ${environment} environemnt.. "
+}
+
+def run_api_tests(String environment){
+   echo "API Tests triggered against ${environment} environemnt.. "
+}
 
 // Build of application;
 //  deployment in “DEV” env;
