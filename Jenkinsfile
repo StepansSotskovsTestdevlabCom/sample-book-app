@@ -41,7 +41,7 @@ pipeline {
 }
 
 
-def build_docker_image(String image) {
+def build_docker_image() {
     echo "Building docker image.. "
     sh "docker build --no-cache -t stepanssotskovs/sample-book-app:latest ."
 
