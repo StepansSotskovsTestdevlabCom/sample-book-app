@@ -61,7 +61,6 @@ def deploy(String environment){
 }
 
 def run_api_tests(String environment){
-   git branch: 'main', poll: false, url: 'https://github.com/StepansSotskovsTestdevlabCom/course-js-api-framework.git'
    echo "API Tests triggered against ${environment} environemnt.. "
    sh "ls"
 }
