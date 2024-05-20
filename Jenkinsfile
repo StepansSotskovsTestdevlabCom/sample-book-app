@@ -55,7 +55,8 @@ def build_docker_image() {
 
 def deploy(String environment){
     echo "Deployment triggered to ${environment} environemnt.. "
-    sh "docker compose down"
+    sh "docker compose stop sample-book-app-${environment}"
+    sh "docker compose rm sample-book-app-${environment}"
     sh "docker compose up -d sample-book-app-${environment}"
 }
 
