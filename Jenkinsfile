@@ -9,32 +9,32 @@ pipeline {
         }
         stage('deploy-dev') {
             steps {
-                deploy("dev")
+                deploy("DEV")
             }
         }
         stage('api-test-dev') {
             steps {
-                run_api_tests("dev")
+                run_api_tests("DEV")
             }
         }
         stage('deploy-stg') {
             steps {
-                deploy("stg")
+                deploy("STG")
             }
         }
         stage('api-test-stg') {
             steps {
-                run_api_tests("stg")
+                run_api_tests("STG")
             }
         }
         stage('deploy-prd') {
             steps {
-                deploy("prd")
+                deploy("PRD")
             }
         }
         stage('api-test-prd') {
             steps {
-                run_api_tests("prd")
+                run_api_tests("PRD")
             }
         }
     }
@@ -55,8 +55,6 @@ def build_docker_image() {
 
 def deploy(String environment){
     echo "Deployment triggered to ${environment} environemnt.. "
-    sh "docker compose down"
-    sh "docker compose up sample-book-app-${environment}"
 }
 
 def run_api_tests(String environment){
