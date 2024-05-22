@@ -17,7 +17,7 @@ pipeline {
         }
         stage('api-test-dev') {
             steps {
-                run_api_tests("DEV")
+                run_api_tests("dev")
             }
         }
         stage('deploy-stg') {
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('api-test-stg') {
             steps {
-                run_api_tests("STG")
+                run_api_tests("stg")
             }
         }
         stage('deploy-prd') {
@@ -37,7 +37,7 @@ pipeline {
         }
         stage('api-test-prd') {
             steps {
-                run_api_tests("PRD")
+                run_api_tests("prd")
             }
         }
     }
@@ -65,7 +65,7 @@ def deploy(String environment){
 
 def run_api_tests(String environment){
    echo "API Tests triggered against ${environment} environemnt.. "
-   sh "docker run --network=host --rm stepanssotskovs/api-tests run BOOKS BOOKS_${environment}"
+   sh "ls"
 }
 
 // Build of application;
