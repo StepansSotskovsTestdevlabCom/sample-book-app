@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        pollSCM('*/1 * * * *')
+    }
 
     stages {
         stage('build-docker-image') {
@@ -14,7 +17,7 @@ pipeline {
         }
         stage('api-test-dev') {
             steps {
-                run_api_tests("dev")
+                run_api_tests("DEV")
             }
         }
         stage('deploy-stg') {
@@ -24,7 +27,7 @@ pipeline {
         }
         stage('api-test-stg') {
             steps {
-                run_api_tests("stg")
+                run_api_tests("STG")
             }
         }
         stage('deploy-prd') {
@@ -34,7 +37,7 @@ pipeline {
         }
         stage('api-test-prd') {
             steps {
-                run_api_tests("prd")
+                run_api_tests("PRD")
             }
         }
     }
@@ -62,7 +65,7 @@ def deploy(String environment){
 
 def run_api_tests(String environment){
    echo "API Tests triggered against ${environment} environemnt.. "
-   sh "ls"
+   sh "docker run --network=host stepanssotskovs/api-tests run BOOKS BOOKS_${environment}"
 }
 
 // Build of application;
