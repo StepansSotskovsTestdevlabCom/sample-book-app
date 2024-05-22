@@ -2,19 +2,19 @@ version: '3.8'
 services:
   sample-book-app-dev:
     build: .
-    image: mtararujs/sample-book-app:latest
+    image: stepanssotskovs/sample-book-app:latest
     container_name: sample-book-app-dev
     ports:
       - 1010:1050
   sample-book-app-stg:
     build: .
-    image: mtararujs/sample-book-app:latest
+    image: stepanssotskovs/sample-book-app:latest
     container_name: sample-book-app-stg
     ports:
       - 2020:1050
   sample-book-app-prd:
     build: .
-    image: mtararujs/sample-book-app:latest
+    image: stepanssotskovs/sample-book-app:latest
     container_name: sample-book-app-prd
     ports:
       - 3030:1050
